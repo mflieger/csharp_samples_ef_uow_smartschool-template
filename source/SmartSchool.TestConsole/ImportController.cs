@@ -35,18 +35,18 @@ namespace SmartSchool.TestConsole
                     DateTime dateTime = DateTime.Parse($"{parts[0]} {parts[1]}");
                     Measurement measurement = new Measurement() { Time = dateTime, Value = Convert.ToDouble(parts[3]) };
 
-                    if (!sensors.ContainsKey(name))
+                    if (!sensors.ContainsKey(parts[2]))
                     {
                         Sensor newSensor = new Sensor() { Name = name, Location = location };
                         measurement.Sensor = newSensor;
-                        sensors.Add(name, newSensor);
+                        sensors.Add(parts[2], newSensor);
                         newSensor.Measurements.Add(measurement);
                     }
                     else
                     {
                         Sensor existingSensor = sensors
                                                 .Values
-                                                .SingleOrDefault(s => s.Name == name);
+                                                .SingleOrDefault(s => s.Name == name && s.Location == location);
                         measurement.Sensor = existingSensor;
                         existingSensor.Measurements.Add(measurement);
                     }

@@ -14,5 +14,10 @@ namespace SmartSchool.Core.Entities
         public string Location { get; set; }
         public string Unit { get; set; }
         public ICollection<Measurement> Measurements { get; set; }
+
+        public Sensor()
+        {
+            Measurements = new List<Measurement>();
+        }
     }
 }
