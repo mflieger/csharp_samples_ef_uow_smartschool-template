@@ -1,5 +1,7 @@
-﻿using SmartSchool.Core.Contracts;
+﻿using Microsoft.EntityFrameworkCore;
+using SmartSchool.Core.Contracts;
 using SmartSchool.Core.Entities;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SmartSchool.Persistence
@@ -18,5 +20,8 @@ namespace SmartSchool.Persistence
             _dbContext.Measurements.AddRange(measurements);
         }
 
-   }
+        public IEnumerable<Measurement> GetAllMeasurementsByLocationAndName(string location, string name) => _dbContext.Measurements
+                                                                                        .Include(s => s.Sensor)
+                                                                                        .Where(s => s.Sensor.Location == location && s.Sensor.Name == name);
+    }
 }
